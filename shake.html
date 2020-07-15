@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+
+        .box2 {
+            width: 100px;
+            height: 100px;
+            left: 300px;
+            background-color: green;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="box2" v-deshake="deshakeClick"></div>
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script>
+        Vue.directive("deshake", {
+            inserted(el, binding) {
+                let timer;
+                el.addEventListener("click", (e) => {
+                    if (timer) {
+                        clearTimeout(timer);
+                    }
+                    timer = setTimeout(() => {
+                        binding.value();
+                    }, 1000)
+                })
+            }
+        })
+        let app = new Vue({
+            el: '#app',
+            data: {
+                canDrag: false
+            },
+            methods: {
+                deshakeClick() {
+                    console.log(123)
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>
